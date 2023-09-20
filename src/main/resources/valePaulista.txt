@@ -1,0 +1,16 @@
+ubatuba, saoLuiz, carapeva, taubate, cacapava, saoJose, cacapavaVelha, jardimSaoJudas, paratei, caragua, barraDaVargina, paraibuna, salesopolis, mogiDasCruzes, suzano
+saoLuiz, caragua
+ubatuba, carapeva
+saoLuiz, taubate
+carapeva, cacapava, cacapavaVelha
+taubate, saoJose
+cacapava, paratei
+taubate, jardimSaoJudas
+paratei, cacapavaVelha, paraibuna
+saoJose, jardimSaoJudas, suzano
+barraDaVargina, ubatuba
+paraibuna, salesopolis, caragua
+jardimSaoJudas, barraDaVargina
+mogiDasCruzes, barraDaVargina
+suzano, salesopolis
+paratei, mogiDasCruzes
