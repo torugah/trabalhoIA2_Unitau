@@ -1,16 +1,20 @@
-ubatuba, saoLuiz, carapeva, taubate, cacapava, saoJose, cacapavaVelha, jardimSaoJudas, paratei, caragua, barraDaVargina, paraibuna, salesopolis, mogiDasCruzes, suzano
-saoLuiz, caragua
-ubatuba, carapeva
-saoLuiz, taubate
-carapeva, cacapava, cacapavaVelha
-taubate, saoJose
-cacapava, paratei
-taubate, jardimSaoJudas
-paratei, cacapavaVelha, paraibuna
-saoJose, jardimSaoJudas, suzano
-barraDaVargina, ubatuba
-paraibuna, salesopolis, caragua
-jardimSaoJudas, barraDaVargina
-mogiDasCruzes, barraDaVargina
-suzano, salesopolis
-paratei, mogiDasCruzes
+barraDaVargina,cacapava,cacapavaVelha,caragua,carapeva,jardimSaoJudas,mogiDasCruzes,natividadeDaSerra,paraibuna,paratei,redencaoDaSerra,salesopolis,saoJose,saoLuiz,suzano,taubate,ubatuba
+caragua,paraibuna,salesopolis
+saoJose,taubate
+jardimSaoJudas,taubate
+barraDaVargina,ubatuba
+saoLuiz,taubate
+cacapavaVelha,paratei,paraibuna
+suzano,salesopolis
+redencaoDaSerra
+jardimSaoJudas,barraDaVargina,redencaoDaSerra
+suzano,jardimSaoJudas,saoJose
+carapeva,natividadeDaSerra
+mogiDasCruzes,barraDaVargina
+paratei,cacapava
+carapeva,ubatuba
+paratei,mogiDasCruzes
+cacapava,cacapavaVelha,carapeva
+saoLuiz,caragua
+
+
