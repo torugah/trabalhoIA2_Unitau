@@ -499,7 +499,7 @@ public class Busca {
             for (Map.Entry<String, Integer> entrada : grafo.get(ind).entrySet()) {
                 String novo = entrada.getKey();
                 int pesoAresta = entrada.getValue();
-                int custoParaNodo = atual.getCusto() + 1; // Custo uniforme, assumindo que todos têm custo igual a 1
+                int custoParaNodo = atual.getCusto() + pesoAresta; // Custo uniforme, assumindo que todos têm custo igual a 1
 
                 // Verifica se o nó já foi visitado ou tem um custo menor
                 if (!filaContemEstado(fila, novo) || custoParaNodo < getCustoPorEstado(fila, novo)) {
