@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/caminho") 
 public class CaminhoController {
     
-    @GetMapping(value = "/{origem}/{destino}/{metodo}")
+    @GetMapping(value = "/old/{origem}/{destino}/{metodo}")
     public List<String> retornaCaminho(@PathVariable String origem, @PathVariable String destino, @PathVariable String metodo){
         
         TrabalhoIaApplication trab = new TrabalhoIaApplication();
@@ -36,6 +36,9 @@ public class CaminhoController {
             case "bidirecional":
                 List<String> bidirecional = busca.bidirecional(origem, destino, trab.getCidades(), trab.getCidadesPorLinha());
                 return bidirecional;
+            case "custoUniforme":
+                List<String> custoUniforme = busca.buscaCustoUniforme(destino, metodo, trab.getCidades(), trab.lerCidadesPorLinhaCusteado());
+                return custoUniforme;
         }
 
         return null;

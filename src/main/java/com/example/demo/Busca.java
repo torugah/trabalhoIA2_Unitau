@@ -2,7 +2,10 @@ package com.example.demo;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
 
 public class Busca {
 
@@ -160,7 +163,8 @@ public class Busca {
         return Collections.singletonList("Caminho não encontrado");
     }// fim da profundidade
 
-    public List<String> profundidadeLimitada(String inicio, String fim, List<String> nos, List<List<String>> grafo, int limite) {
+    public List<String> profundidadeLimitada(String inicio, String fim, List<String> nos, List<List<String>> grafo,
+            int limite) {
         // Manipular a PILHA para a busca
         Lista l1 = new Lista();
 
@@ -233,7 +237,8 @@ public class Busca {
         return Collections.singletonList("Caminho não encontrado");
     }// fim da profundidade limitada
 
-    public List<String> profundidadeItarativa(String inicio, String fim, List<String> nos, List<List<String>> grafo, int limiteMax) {
+    public List<String> profundidadeItarativa(String inicio, String fim, List<String> nos, List<List<String>> grafo,
+            int limiteMax) {
 
         for (int limite = 1; limite <= limiteMax; limite++) {
 
@@ -472,4 +477,61 @@ public class Busca {
         }
         return Collections.singletonList("Caminho não encontrado");
     }
+
+    public List<String> buscaCustoUniforme(String inicio, String fim, List<String> nos, List<Map<String,Integer>> grafo) {
+        // Usamos uma fila de prioridade para ordenar os nós pelo custo
+        PriorityQueue<NoCusteado> fila = new PriorityQueue<>(Comparator.comparingInt(NoCusteado::getCusto));
+        // Mapa para rastrear os custos
+        // Inicializa o custo do nó inicial como 0
+        NoCusteado noInicial = new NoCusteado(null, inicio, 0, 0, null, null);
+        fila.add(noInicial);
+
+        while (!fila.isEmpty()) {
+            // Remove o nó de menor custo da fila
+            NoCusteado atual = fila.poll();
+
+            if (atual.getEstado().equals(fim)) {
+                // Encontramos o objetivo, construímos o caminho
+                return construirCaminho(atual);
+            }
+
+            int ind = nos.indexOf(atual.getEstado());
+            for (Map.Entry<String, Integer> entrada : grafo.get(ind).entrySet()) {
+                String novo = entrada.getKey();
+                int pesoAresta = entrada.getValue();
+                int custoParaNodo = atual.getCusto() + 1; // Custo uniforme, assumindo que todos têm custo igual a 1
+
+                // Verifica se o nó já foi visitado ou tem um custo menor
+                if (!filaContemEstado(fila, novo) || custoParaNodo < getCustoPorEstado(fila, novo)) {
+                    NoCusteado novoNo = new NoCusteado(atual, novo, atual.getNivel() + 1, custoParaNodo, null, null);
+                    fila.add(novoNo);
+                }
+            }
+        }
+
+        return Collections.singletonList("Caminho não encontrado"); // Caminho não encontrado
+    }
+
+    private List<String> construirCaminho(NoCusteado objetivo) {
+        List<String> caminho = new ArrayList<>();
+        while (objetivo != null) {
+            caminho.add(objetivo.getEstado());
+            objetivo = objetivo.getPai();
+        }
+        Collections.reverse(caminho);
+        return caminho;
+    }
+
+    private boolean filaContemEstado(PriorityQueue<NoCusteado> fila, String estado) {
+        return fila.stream().anyMatch(no -> no.getEstado().equals(estado));
+    }
+
+    private int getCustoPorEstado(PriorityQueue<NoCusteado> fila, String estado) {
+        return fila.stream()
+                .filter(no -> no.getEstado().equals(estado))
+                .findFirst()
+                .map(NoCusteado::getCusto)
+                .orElse(Integer.MAX_VALUE);
+    }
+
 }
