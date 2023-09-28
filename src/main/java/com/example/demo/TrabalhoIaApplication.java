@@ -90,7 +90,7 @@ public class TrabalhoIaApplication {
 				String[] partes = linha.split(",");
 				Map<String, Integer> cidadesComPeso = new HashMap<>();
 
-				for (int i = 1; i < partes.length; i++) {
+				for (int i = 0; i < partes.length; i++) {
 					String[] cidadePeso = partes[i].split(":");
 					String cidade = cidadePeso[0].trim();
 					int peso = Integer.parseInt(cidadePeso[1].trim());

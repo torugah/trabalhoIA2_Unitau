@@ -36,6 +36,19 @@ public class CaminhoController {
             case "bidirecional":
                 List<String> bidirecional = busca.bidirecional(origem, destino, trab.getCidades(), trab.getCidadesPorLinha());
                 return bidirecional;
+        }
+
+        return null;
+    }
+
+    @GetMapping(value = "/new/{origem}/{destino}/{metodo}")
+    public List<String> retornaCaminhoNovo(@PathVariable String origem, @PathVariable String destino, @PathVariable String metodo){
+        
+        TrabalhoIaApplication trab = new TrabalhoIaApplication();
+        
+        Busca busca = new Busca();
+       
+        switch(metodo){
             case "custoUniforme":
                 List<String> custoUniforme = busca.buscaCustoUniforme(destino, metodo, trab.getCidades(), trab.lerCidadesPorLinhaCusteado());
                 return custoUniforme;
