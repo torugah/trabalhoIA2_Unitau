@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Random;
 
 import ch.qos.logback.core.joran.sanity.Pair;
 
@@ -481,7 +482,8 @@ public class Busca {
         return Collections.singletonList("Caminho não encontrado");
     }
 
-    public List<String> buscaCustoUniforme(String inicio, String fim, List<String> nos, List<Map<String, Integer>> grafo) {
+    public List<String> buscaCustoUniforme(String inicio, String fim, List<String> nos,
+            List<Map<String, Integer>> grafo) {
         // Usamos uma fila de prioridade para ordenar os nós pelo custo
         PriorityQueue<NoCusteado> fila = new PriorityQueue<>(Comparator.comparingInt(NoCusteado::getCusto));
         // Mapa para rastrear os custos
@@ -544,7 +546,7 @@ public class Busca {
                 int ind1 = nos.indexOf(estado);
 
                 double v2 = atual.getValor2() + custo; // custo do caminho
-                double v1 = 2.0f;//h[ind_f][ind1]; // f2(n)
+                double v1 = 2.0;// h[ind_f][ind1]; // f2(n)
 
                 boolean flag1 = true;
                 boolean flag2 = true;
@@ -577,6 +579,8 @@ public class Busca {
         notFound.add("Caminho não encontrado");
         return notFound;
     }
+
+    // MÉTODOS AUXILIARES
 
     private List<String> construirCaminho(NoCusteado objetivo) {
         List<String> caminho = new ArrayList<>();

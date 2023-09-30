@@ -17,7 +17,6 @@ public class ListaCusteada {
             novoNo.setProximo(head);
             head.setAnterior(novoNo);
             head = novoNo;
-            System.out.println("Sou gay");
         }
     }
 
