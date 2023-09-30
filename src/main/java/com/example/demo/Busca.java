@@ -3,9 +3,12 @@ package com.example.demo;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+
+import ch.qos.logback.core.joran.sanity.Pair;
 
 public class Busca {
 
@@ -478,7 +481,7 @@ public class Busca {
         return Collections.singletonList("Caminho não encontrado");
     }
 
-    public List<String> buscaCustoUniforme(String inicio, String fim, List<String> nos, List<Map<String,Integer>> grafo) {
+    public List<String> buscaCustoUniforme(String inicio, String fim, List<String> nos, List<Map<String, Integer>> grafo) {
         // Usamos uma fila de prioridade para ordenar os nós pelo custo
         PriorityQueue<NoCusteado> fila = new PriorityQueue<>(Comparator.comparingInt(NoCusteado::getCusto));
         // Mapa para rastrear os custos
@@ -495,11 +498,11 @@ public class Busca {
                 return construirCaminho(atual);
             }
 
-            int ind = nos.indexOf(atual.getEstado());      
-            for (Map.Entry<String, Integer> entrada : grafo.get(ind).entrySet()) {       
+            int ind = nos.indexOf(atual.getEstado());
+            for (Map.Entry<String, Integer> entrada : grafo.get(ind).entrySet()) {
                 String novo = entrada.getKey();
                 int pesoAresta = entrada.getValue();
-                int custoParaNodo = atual.getCusto() + pesoAresta; 
+                int custoParaNodo = atual.getCusto() + pesoAresta;
 
                 // Verifica se o nó já foi visitado ou tem um custo menor
                 if (!filaContemEstado(fila, novo) || custoParaNodo < getCustoPorEstado(fila, novo)) {
@@ -510,6 +513,69 @@ public class Busca {
         }
 
         return Collections.singletonList("Caminho não encontrado"); // Caminho não encontrado
+    }
+
+    public List<String> greedy(String inicio, String fim, List<String> nos, List<Map<String, Integer>> grafo) {
+        int ind_f = nos.indexOf(fim);
+        ListaGreedy l1 = new ListaGreedy();
+        ListaGreedy l2 = new ListaGreedy();
+        List<List<Object>> visitado = new ArrayList<>();
+
+        l1.insereUltimo(inicio, 0, 0, null);
+        l2.insereUltimo(inicio, 0, 0, null);
+        List<Object> linha = new ArrayList<>();
+        linha.add(inicio);
+        linha.add(0.0);
+        visitado.add(linha);
+
+        while (!l1.vazio()) {
+            NoGreedy atual = l1.deletaPrimeiro();
+
+            if (atual.getEstado().equals(fim)) {
+                List<String> caminho = l2.exibeArvore2(atual.getEstado(), atual.getValor1());
+                return caminho;
+            }
+
+            int ind = nos.indexOf(atual.getEstado());
+            for (Map.Entry<String, Integer> novo : grafo.get(ind).entrySet()) {
+                String estado = novo.getKey();
+                int custo = novo.getValue();
+
+                int ind1 = nos.indexOf(estado);
+
+                double v2 = atual.getValor2() + custo; // custo do caminho
+                double v1 = 2.0f;//h[ind_f][ind1]; // f2(n)
+
+                boolean flag1 = true;
+                boolean flag2 = true;
+                for (List<Object> visit : visitado) {
+                    if (visit.get(0).equals(estado)) {
+                        if ((double) visit.get(1) <= v2) {
+                            flag1 = false;
+                        } else {
+                            visit.set(1, v2);
+                            flag2 = false;
+                        }
+                        break;
+                    }
+                }
+
+                if (flag1) {
+                    l1.inserePos_X(estado, v1, v2, atual);
+                    l2.inserePos_X(estado, v1, v2, atual);
+                    if (flag2) {
+                        List<Object> newLine = new ArrayList<>();
+                        newLine.add(estado);
+                        newLine.add(v2);
+                        visitado.add(newLine);
+                    }
+                }
+            }
+        }
+
+        List<String> notFound = new ArrayList<>();
+        notFound.add("Caminho não encontrado");
+        return notFound;
     }
 
     private List<String> construirCaminho(NoCusteado objetivo) {

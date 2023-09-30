@@ -52,6 +52,9 @@ public class CaminhoController {
             case "custoUniforme":
                 List<String> custoUniforme = busca.buscaCustoUniforme(origem, destino, trab.getCidades(), trab.lerCidadesPorLinhaCusteado());
                 return custoUniforme;
+            case "greedy":
+                List<String> greedy = busca.greedy(origem, destino, trab.getCidades(), trab.lerCidadesPorLinhaCusteado());
+                return greedy;
         }
 
         return null;
