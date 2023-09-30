@@ -495,8 +495,8 @@ public class Busca {
                 return construirCaminho(atual);
             }
 
-            int ind = nos.indexOf(atual.getEstado());
-            for (Map.Entry<String, Integer> entrada : grafo.get(ind).entrySet()) {
+            int ind = nos.indexOf(atual.getEstado());      
+            for (Map.Entry<String, Integer> entrada : grafo.get(ind).entrySet()) {       
                 String novo = entrada.getKey();
                 int pesoAresta = entrada.getValue();
                 int custoParaNodo = atual.getCusto() + pesoAresta; 

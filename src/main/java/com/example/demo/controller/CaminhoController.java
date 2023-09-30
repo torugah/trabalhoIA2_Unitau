@@ -50,7 +50,7 @@ public class CaminhoController {
        
         switch(metodo){
             case "custoUniforme":
-                List<String> custoUniforme = busca.buscaCustoUniforme(destino, metodo, trab.getCidades(), trab.lerCidadesPorLinhaCusteado());
+                List<String> custoUniforme = busca.buscaCustoUniforme(origem, destino, trab.getCidades(), trab.lerCidadesPorLinhaCusteado());
                 return custoUniforme;
         }
 
