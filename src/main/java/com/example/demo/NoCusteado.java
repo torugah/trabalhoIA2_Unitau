@@ -15,6 +15,7 @@ public class NoCusteado {
         this.custo = 0; // Inicialmente, o custo pode ser definido como 0
         this.anterior = null;
         this.proximo = null;
+        System.out.println("Não sou mais gay");
     }
 
     public NoCusteado(NoCusteado pai, String estado, int nivel, int custo, NoCusteado anterior, NoCusteado proximo) {
