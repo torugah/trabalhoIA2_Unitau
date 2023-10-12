@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/caminho") 
 public class CaminhoController {
     
-    @GetMapping(value = "/old/{origem}/{destino}/{metodo}")
+    @GetMapping(value = "/{origem}/{destino}/{metodo}")
     public List<String> retornaCaminho(@PathVariable String origem, @PathVariable String destino, @PathVariable String metodo){
         
         TrabalhoIaApplication trab = new TrabalhoIaApplication();
@@ -36,11 +36,19 @@ public class CaminhoController {
             case "bidirecional":
                 List<String> bidirecional = busca.bidirecional(origem, destino, trab.getCidades(), trab.getCidadesPorLinha());
                 return bidirecional;
+            case "custoUniforme":
+                List<String> custoUniforme = busca.buscaCustoUniforme(origem, destino, trab.getCidades(), trab.lerCidadesPorLinhaCusteado());
+                return custoUniforme;
+            case "greedy":
+                List<String> greedy = busca.greedy(origem, destino, trab.getCidades(), trab.lerCidadesPorLinhaCusteado());
+                return greedy;
         }
 
         return null;
     }
 
+    // <editor-fold defaultstate="collapsed" desc="código antigo">
+    /* 
     @GetMapping(value = "/new/{origem}/{destino}/{metodo}")
     public List<String> retornaCaminhoNovo(@PathVariable String origem, @PathVariable String destino, @PathVariable String metodo){
         
@@ -59,6 +67,8 @@ public class CaminhoController {
 
         return null;
     }
+    */
+    // </editor-fold>
 
     @GetMapping("/mensagem")
     public String getMensagem(@RequestParam(name = "nome", defaultValue = "Visitante") String nome) {
