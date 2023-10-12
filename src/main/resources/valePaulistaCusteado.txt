@@ -3,7 +3,7 @@ caragua:8,paraibuna:7,salesopolis:9
 saoJose:6,taubate:5
 jardimSaoJudas:7,taubate:8
 barraDaVargina:8,ubatuba:12
-saoLuiz:11,taubate:14
+saoLuiz:11,taubate:14,redencaoDaSerra:7
 cacapavaVelha:8,paratei:8,paraibuna:9
 suzano:10,salesopolis:7
 redencaoDaSerra:6

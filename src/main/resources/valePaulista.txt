@@ -3,11 +3,11 @@ caragua,paraibuna,salesopolis
 saoJose,taubate
 jardimSaoJudas,taubate
 barraDaVargina,ubatuba
-saoLuiz,taubate
+saoLuiz,taubate,redencaoDaSerra
 cacapavaVelha,paratei,paraibuna
 suzano,salesopolis
 redencaoDaSerra
-jardimSaoJudas,barraDaVargina,redencaoDaSerra
+jardimSaoJudas,barraDaVargina
 suzano,jardimSaoJudas,saoJose
 carapeva,natividadeDaSerra
 mogiDasCruzes,barraDaVargina
