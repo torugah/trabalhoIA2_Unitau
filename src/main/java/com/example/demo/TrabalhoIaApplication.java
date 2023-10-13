@@ -16,7 +16,7 @@ public class TrabalhoIaApplication {
 
 	private List<String> cidades = lerNomesCidades();
 	private List<List<String>> cidadesPorLinha = lerCidadesPorLinha();
-	private List<Map<String, Integer>> cidadesPorLinhaCusteado = lerCidadesPorLinhaCusteado();
+	private List<Map<String, Double>> cidadesPorLinhaCusteado = lerCidadesPorLinhaCusteado();
 
 	public TrabalhoIaApplication() {
 	}
@@ -29,7 +29,7 @@ public class TrabalhoIaApplication {
 		return cidades;
 	}
 
-	public List<Map<String, Integer>> getCidadesPorLinhaCusteado(){
+	public List<Map<String, Double>> getCidadesPorLinhaCusteado(){
 		return cidadesPorLinhaCusteado;
 	}
 
@@ -78,8 +78,8 @@ public class TrabalhoIaApplication {
 		return cidadesPorLinha;
 	}
 
-	public List<Map<String, Integer>> lerCidadesPorLinhaCusteado() {
-		List<Map<String, Integer>> cidadesPorLinha = new ArrayList<>();
+	public List<Map<String, Double>> lerCidadesPorLinhaCusteado() {
+		List<Map<String, Double>> cidadesPorLinha = new ArrayList<>();
 
 		try (BufferedReader br = new BufferedReader(new FileReader("src\\main\\resources\\valePaulistaCusteado.txt"))) {
 			// Ignorar a primeira linha
@@ -88,12 +88,12 @@ public class TrabalhoIaApplication {
 			String linha;
 			while ((linha = br.readLine()) != null) {
 				String[] partes = linha.split(",");
-				Map<String, Integer> cidadesComPeso = new HashMap<>();
+				Map<String, Double> cidadesComPeso = new HashMap<>();
 
 				for (int i = 0; i < partes.length; i++) {
 					String[] cidadePeso = partes[i].split(":");
 					String cidade = cidadePeso[0].trim();
-					int peso = Integer.parseInt(cidadePeso[1].trim());
+					Double peso = Double.parseDouble(cidadePeso[1].trim());
 					cidadesComPeso.put(cidade, peso);
 				}
 

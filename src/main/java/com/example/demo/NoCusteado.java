@@ -4,7 +4,7 @@ public class NoCusteado {
     private NoCusteado pai;
     private String estado;
     private int nivel;
-    private int custo; // Adicionado campo de custo
+    private Double custo; // Adicionado campo de custo
     private NoCusteado anterior;
     private NoCusteado proximo;
 
@@ -12,12 +12,12 @@ public class NoCusteado {
         this.pai = null;
         this.estado = null;
         this.nivel = 0;
-        this.custo = 0; // Inicialmente, o custo pode ser definido como 0
+        this.custo = 0.0; // Inicialmente, o custo pode ser definido como 0
         this.anterior = null;
         this.proximo = null;
     }
 
-    public NoCusteado(NoCusteado pai, String estado, int nivel, int custo, NoCusteado anterior, NoCusteado proximo) {
+    public NoCusteado(NoCusteado pai, String estado, int nivel, Double custo, NoCusteado anterior, NoCusteado proximo) {
         this.pai = pai;
         this.estado = estado;
         this.nivel = nivel;
@@ -50,11 +50,11 @@ public class NoCusteado {
         this.nivel = nivel;
     }
 
-    public int getCusto() {
+    public Double getCusto() {
         return custo;
     }
 
-    public void setCusto(int custo) {
+    public void setCusto(Double custo) {
         this.custo = custo;
     }
 

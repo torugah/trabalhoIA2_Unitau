@@ -16,6 +16,7 @@ public class Busca {
      * @param grafo
      * @return Object
      */
+
     public List<String> amplitude(String inicio, String fim, List<String> nos, List<List<String>> grafo) {
         // Manipular a FILA para a busca
         Lista lista1 = new Lista();
@@ -478,13 +479,12 @@ public class Busca {
         return Collections.singletonList("Caminho não encontrado");
     }
 
-    public List<String> buscaCustoUniforme(String inicio, String fim, List<String> nos,
-            List<Map<String, Integer>> grafo) {
+    public List<String> buscaCustoUniforme(String inicio, String fim, List<String> nos, List<Map<String, Double>> grafo) {
         // Usamos uma fila de prioridade para ordenar os nós pelo custo
-        PriorityQueue<NoCusteado> fila = new PriorityQueue<>(Comparator.comparingInt(NoCusteado::getCusto));
+        PriorityQueue<NoCusteado> fila = new PriorityQueue<>(Comparator.comparingDouble(NoCusteado::getCusto));
         // Mapa para rastrear os custos
         // Inicializa o custo do nó inicial como 0
-        NoCusteado noInicial = new NoCusteado(null, inicio, 0, 0, null, null);
+        NoCusteado noInicial = new NoCusteado(null, inicio, 0, 0.0, null, null);
         fila.add(noInicial);
 
         while (!fila.isEmpty()) {
@@ -497,10 +497,10 @@ public class Busca {
             }
 
             int ind = nos.indexOf(atual.getEstado());
-            for (Map.Entry<String, Integer> entrada : grafo.get(ind).entrySet()) {
+            for (Map.Entry<String, Double> entrada : grafo.get(ind).entrySet()) {
                 String novo = entrada.getKey();
-                int pesoAresta = entrada.getValue();
-                int custoParaNodo = atual.getCusto() + pesoAresta;
+                Double pesoAresta = entrada.getValue();
+                Double custoParaNodo = atual.getCusto() + pesoAresta;
 
                 // Verifica se o nó já foi visitado ou tem um custo menor
                 if (!filaContemEstado(fila, novo) || custoParaNodo < getCustoPorEstado(fila, novo)) {
@@ -513,7 +513,7 @@ public class Busca {
         return Collections.singletonList("Caminho não encontrado"); // Caminho não encontrado
     }
 
-    public List<String> greedy(String inicio, String fim, List<String> nos, List<Map<String, Integer>> grafo) {
+    public List<String> greedy(String inicio, String fim, List<String> nos, List<Map<String, Double>> grafo) {
         int ind_f = nos.indexOf(fim);
         ListaGreedy l1 = new ListaGreedy();
         ListaGreedy l2 = new ListaGreedy();
@@ -535,9 +535,9 @@ public class Busca {
             }
 
             int ind = nos.indexOf(atual.getEstado());
-            for (Map.Entry<String, Integer> novo : grafo.get(ind).entrySet()) {
+            for (Map.Entry<String, Double> novo : grafo.get(ind).entrySet()) {
                 String estado = novo.getKey();
-                int custo = novo.getValue();
+                Double custo = novo.getValue();
 
                 int ind1 = nos.indexOf(estado);
 
@@ -592,12 +592,12 @@ public class Busca {
         return fila.stream().anyMatch(no -> no.getEstado().equals(estado));
     }
 
-    private int getCustoPorEstado(PriorityQueue<NoCusteado> fila, String estado) {
+    private Double getCustoPorEstado(PriorityQueue<NoCusteado> fila, String estado) {
         return fila.stream()
                 .filter(no -> no.getEstado().equals(estado))
                 .findFirst()
                 .map(NoCusteado::getCusto)
-                .orElse(Integer.MAX_VALUE);
+                .orElse((double) Integer.MAX_VALUE);
     }
 
     private double buscarHeuristica(int destino, int meuLocal) {
