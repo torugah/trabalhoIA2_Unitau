@@ -6,7 +6,7 @@ barraDaVargina:37.5,ubatuba:52.2
 saoLuiz:21.5,taubate:14.3,redencaoDaSerra:32.0
 cacapavaVelha:33.3,paratei:31.6,paraibuna:38.7
 suzano:52.7,salesopolis:10.5
-redencaoDaSerra:22,2
+redencaoDaSerra:22.2
 jardimSaoJudas:17.0,barraDaVargina:31.6
 suzano:38.7,jardimSaoJudas:34.6,saoJose:48.6
 carapeva:21.5,natividadeDaSerra:22.2
