@@ -45,6 +45,9 @@ public class CaminhoController {
             case "aEstrela":
                 List<String> aEstrela = busca.aEstrela(origem, destino, trab.getCidades(), trab.lerCidadesPorLinhaCusteado());
                 return aEstrela;
+            case "aiaEstrela":
+                List<String> aIaEstrela = busca.aIaEstrela(origem, destino, trab.getCidades(), trab.lerCidadesPorLinhaCusteado(), 200.0);
+                return aIaEstrela;
         }
 
         return null;

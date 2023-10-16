@@ -608,6 +608,66 @@ public class Busca {
         return Collections.singletonList("Caminho não encontrado");
     }
 
+    public List<String> aIaEstrela(String inicio, String fim, List<String> nos, List<Map<String, Double>> grafo, Double limite) {
+        int indF = nos.indexOf(fim);
+        while (true) {
+            List<Double> limExc = new ArrayList<>();
+            PriorityQueue<NoAEstrela> fila = new PriorityQueue<>(Comparator.comparingDouble(NoAEstrela::getCusto));
+            List<List<Object>> visitado = new ArrayList<>();
+
+            NoAEstrela noInicial = new NoAEstrela(null, inicio, 0, 0.0, 0.0, 0.0, null, null);
+            fila.add(noInicial);
+
+            while (!fila.isEmpty()) {
+                NoAEstrela atual = fila.poll();
+
+                if (atual.getEstado().equals(fim)) {
+                    List<String> caminho = construirCaminhoAStar(atual);
+                    return caminho;
+                }
+
+                int ind = nos.indexOf(atual.getEstado());
+                for (Map.Entry<String, Double> entrada : grafo.get(ind).entrySet()) {
+                    String novo = entrada.getKey();
+                    Double pesoAresta = entrada.getValue();
+                    Double custoParaNodo = atual.getCusto() + pesoAresta;
+                    Double v1 = custoParaNodo + buscarHeuristica(indF, nos.indexOf(novo));
+
+                    if (v1 <= limite) {
+                        boolean flag1 = true;
+                        boolean flag2 = true;
+                        for (List<Object> visit : visitado) {
+                            if (visit.get(0).equals(novo)) {
+                                if ((double) visit.get(1) <= custoParaNodo) {
+                                    flag1 = false;
+                                } else {
+                                    visit.set(1, custoParaNodo);
+                                    flag2 = false;
+                                }
+                                break;
+                            }
+                        }
+
+                        if (flag1) {
+                            NoAEstrela novoNo = new NoAEstrela(atual, novo, atual.getNivel() + 1, custoParaNodo, v1, 0.0, null, null);
+                            fila.add(novoNo);
+                        }
+                    } else {
+                        limExc.add(v1);
+                    }
+                }
+            }
+
+            if (limExc.isEmpty()) {
+                break; // Não há caminho possível dentro do limite
+            } else {
+                limite = calcularNovoLimite(limExc);
+            }
+        }
+
+        return Collections.singletonList("Caminho não encontrado");
+    }
+
     // MÉTODOS AUXILIARES
 
     private List<String> construirCaminho(NoCusteado objetivo) {
