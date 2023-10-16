@@ -571,9 +571,41 @@ public class Busca {
             }
         }
 
-        List<String> notFound = new ArrayList<>();
-        notFound.add("Caminho não encontrado");
-        return notFound;
+        return Collections.singletonList("Caminho não encontrado");
+    }
+
+    public List<String> aEstrela(String inicio, String fim, List<String> nos, List<Map<String, Double>> grafo) {
+        int indF = nos.indexOf(fim);
+        List<String> caminho = new ArrayList<>();
+        PriorityQueue<NoAEstrela> fila = new PriorityQueue<>(Comparator.comparingDouble(NoAEstrela::getCusto));
+        //List<List<Object>> visitado = new ArrayList<>();
+
+        NoAEstrela noInicial = new NoAEstrela(null, inicio, 0, 0.0, 0.0, 0.0, null, null);
+        fila.add(noInicial);
+
+        while (!fila.isEmpty()) {
+            NoAEstrela atual = fila.poll();
+
+            if (atual.getEstado().equals(fim)) {
+                caminho = construirCaminhoAStar(atual);
+                return caminho;
+            }
+
+            int ind = nos.indexOf(atual.getEstado());
+            for (Map.Entry<String, Double> entrada : grafo.get(ind).entrySet()) {
+                String novo = entrada.getKey();
+                Double pesoAresta = entrada.getValue();
+                Double custoParaNodo = atual.getCusto() + pesoAresta;
+                Double v1 = custoParaNodo + buscarHeuristica(indF, nos.indexOf(novo));
+
+                if (!filaContemEstadoAStar(fila, novo) || custoParaNodo < getCustoPorEstadoAStar(fila, novo)) {
+                    NoAEstrela novoNo = new NoAEstrela(atual, novo, atual.getNivel() + 1, custoParaNodo, v1, 0.0, null, null);
+                    fila.add(novoNo);
+                }
+            }
+        }
+
+        return Collections.singletonList("Caminho não encontrado");
     }
 
     // MÉTODOS AUXILIARES
@@ -597,6 +629,28 @@ public class Busca {
                 .filter(no -> no.getEstado().equals(estado))
                 .findFirst()
                 .map(NoCusteado::getCusto)
+                .orElse((double) Integer.MAX_VALUE);
+    }
+
+    private List<String> construirCaminhoAStar(NoAEstrela objetivo) {
+        List<String> caminho = new ArrayList<>();
+        while (objetivo != null) {
+            caminho.add(objetivo.getEstado());
+            objetivo = objetivo.getPai();
+        }
+        Collections.reverse(caminho);
+        return caminho;
+    }
+
+    private boolean filaContemEstadoAStar(PriorityQueue<NoAEstrela> fila, String estado) {
+        return fila.stream().anyMatch(no -> no.getEstado().equals(estado));
+    }
+
+    private Double getCustoPorEstadoAStar(PriorityQueue<NoAEstrela> fila, String estado) {
+        return fila.stream()
+                .filter(no -> no.getEstado().equals(estado))
+                .findFirst()
+                .map(NoAEstrela::getCusto)
                 .orElse((double) Integer.MAX_VALUE);
     }
 

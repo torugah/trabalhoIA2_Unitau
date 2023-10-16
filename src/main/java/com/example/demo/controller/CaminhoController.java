@@ -42,6 +42,9 @@ public class CaminhoController {
             case "greedy":
                 List<String> greedy = busca.greedy(origem, destino, trab.getCidades(), trab.lerCidadesPorLinhaCusteado());
                 return greedy;
+            case "aEstrela":
+                List<String> aEstrela = busca.aEstrela(origem, destino, trab.getCidades(), trab.lerCidadesPorLinhaCusteado());
+                return aEstrela;
         }
 
         return null;
