@@ -635,14 +635,14 @@ public class Busca {
 
                     if (v1 <= limite) {
                         boolean flag1 = true;
-                        boolean flag2 = true;
+                        //boolean flag2 = true;
                         for (List<Object> visit : visitado) {
                             if (visit.get(0).equals(novo)) {
                                 if ((double) visit.get(1) <= custoParaNodo) {
                                     flag1 = false;
                                 } else {
                                     visit.set(1, custoParaNodo);
-                                    flag2 = false;
+                                    //flag2 = false;
                                 }
                                 break;
                             }
@@ -738,5 +738,25 @@ public class Busca {
 
 		return distancias[destino][meuLocal];
 	}
+
+    private double calcularNovoLimite(List<Double> limExc) {
+        // Verifique se a lista de valores excluídos está vazia
+        if (limExc.isEmpty()) {
+            return Double.POSITIVE_INFINITY; // Sem limite
+        }
+        
+        // Calcule a média dos valores excluídos
+        double soma = 0.0;
+        for (Double valor : limExc) {
+            soma += valor;
+        }
+        double media = soma / limExc.size();
+        
+        // Ajuste o novo limite para uma fração (por exemplo, 1.2) da média
+        double novoLimite = 1.2 * media;
+        
+        return novoLimite;
+    }
+    
 
 }
