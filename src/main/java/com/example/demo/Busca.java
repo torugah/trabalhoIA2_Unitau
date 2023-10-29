@@ -742,7 +742,12 @@ public class Busca {
     private double calcularNovoLimite(List<Double> limExc) {
         // Verifique se a lista de valores excluídos está vazia
         if (limExc.isEmpty()) {
-            return Double.POSITIVE_INFINITY; // Sem limite
+            Double infinitoPositivo = Double.POSITIVE_INFINITY;
+            System.out.println("Estava vazio >>> " + infinitoPositivo);           
+            return infinitoPositivo;
+            //return Double.POSITIVE_INFINITY; // Sem limite
+        } else {
+             System.out.println("Não estava vazio >>> " + limExc);
         }
         
         // Calcule a média dos valores excluídos
@@ -755,6 +760,7 @@ public class Busca {
         // Ajuste o novo limite para uma fração (por exemplo, 1.2) da média
         double novoLimite = 1.2 * media;
         
+        System.out.println("New limit >>> " + novoLimite);
         return novoLimite;
     }
     

@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/caminho") 
 public class CaminhoController {
     
-    @GetMapping(value = "/{origem}/{destino}/{metodo}/{limite}")
-    public List<String> retornaCaminho(@PathVariable String origem, @PathVariable String destino, @PathVariable String metodo, @PathVariable String limite){
+    @GetMapping(value = "/{origem}/{destino}/{metodo}")
+    public List<String> retornaCaminho(@PathVariable String origem, @PathVariable String destino, @PathVariable String metodo, @RequestParam String limite){
         
         TrabalhoIaApplication trab = new TrabalhoIaApplication();
         
