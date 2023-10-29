@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/caminho") 
 public class CaminhoController {
     
-    @GetMapping(value = "/{origem}/{destino}/{metodo}")
-    public List<String> retornaCaminho(@PathVariable String origem, @PathVariable String destino, @PathVariable String metodo){
+    @GetMapping(value = "/{origem}/{destino}/{metodo}/{limite}")
+    public List<String> retornaCaminho(@PathVariable String origem, @PathVariable String destino, @PathVariable String metodo, @PathVariable String limite){
         
         TrabalhoIaApplication trab = new TrabalhoIaApplication();
         
@@ -28,10 +28,10 @@ public class CaminhoController {
                 List<String> profundidade = busca.profundidade(origem, destino, trab.getCidades(), trab.getCidadesPorLinha());
                 return profundidade;
             case "profundidadeLimitada":
-                List<String> profundidadeLimitada = busca.profundidadeLimitada(origem, destino, trab.getCidades(), trab.getCidadesPorLinha(), 6);
+                List<String> profundidadeLimitada = busca.profundidadeLimitada(origem, destino, trab.getCidades(), trab.getCidadesPorLinha(), Integer.parseInt(limite));
                 return profundidadeLimitada;
             case "profundidadeIterativa":
-                List<String> profundidadeIterativa = busca.profundidadeItarativa(origem, destino, trab.getCidades(), trab.getCidadesPorLinha(), 15);
+                List<String> profundidadeIterativa = busca.profundidadeItarativa(origem, destino, trab.getCidades(), trab.getCidadesPorLinha(), Integer.parseInt(limite));
                 return profundidadeIterativa;
             case "bidirecional":
                 List<String> bidirecional = busca.bidirecional(origem, destino, trab.getCidades(), trab.getCidadesPorLinha());
@@ -46,7 +46,7 @@ public class CaminhoController {
                 List<String> aEstrela = busca.aEstrela(origem, destino, trab.getCidades(), trab.lerCidadesPorLinhaCusteado());
                 return aEstrela;
             case "aiaEstrela":
-                List<String> aIaEstrela = busca.aIaEstrela(origem, destino, trab.getCidades(), trab.lerCidadesPorLinhaCusteado(), 200.0);
+                List<String> aIaEstrela = busca.aIaEstrela(origem, destino, trab.getCidades(), trab.lerCidadesPorLinhaCusteado(), Double.parseDouble(limite));
                 return aIaEstrela;
         }
 
