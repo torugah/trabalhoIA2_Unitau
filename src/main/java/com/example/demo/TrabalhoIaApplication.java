@@ -103,7 +103,7 @@ public class TrabalhoIaApplication {
 			e.printStackTrace();
 		}
 
-		System.out.println(cidadesPorLinha);
+		//System.out.println(cidadesPorLinha);
 
 		return cidadesPorLinha;
 	}
